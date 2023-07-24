@@ -14,7 +14,7 @@ class PlayerController {
         });
       }
       if (!password) {
-        return res.status(400).json({
+        return res.status(401).json({
           result: "Failed",
           message: "password cannot be empty",
         });

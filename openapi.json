@@ -1,0 +1,312 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Traditional Games API",
+    "description": "Berikut ini adalah API yang digunakan dalam games \"Traditional Games\"",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "localhost:4000",
+      "description": "server Traditional Game"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Players",
+      "description": "Berikut ini adalah API untuk Players"
+    },
+    {
+      "name": "Experience",
+      "description": "API untuk update experience"
+    }
+  ],
+  "paths": {
+    "/players": {
+      "get": {
+        "tags": [
+          "Players"
+        ],
+        "summary": "Get Player Info",
+        "description": "Memberikan informasi players mengenai username, email, experience dan level",
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string",
+                        "example": "ilham"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "ilham@binar.com"
+                      },
+                      "experience": {
+                        "type": "integer",
+                        "example": 10
+                      },
+                      "level": {
+                        "type": "integer",
+                        "example": 9
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Players"
+        ],
+        "summary": "Create New Player",
+        "description": "Endpoint ini untuk membuat player baru",
+        "requestBody": {
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "example": "ilham"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "ilham@binar.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "gold"
+                    },
+                    "experience": {
+                      "type": "integer",
+                      "example": 10
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "success",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string",
+                        "example": "ilham"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "ilham@binar.com"
+                      },
+                      "experience": {
+                        "type": "integer",
+                        "example": 10
+                      },
+                      "level": {
+                        "type": "integer",
+                        "example": 9
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "username or email cannot empty"
+          },
+          "401": {
+            "description": "password cannot empty"
+          }
+        }
+      }
+    },
+    "/players/{userId}": {
+      "get": {
+        "tags": [
+          "Players"
+        ],
+        "summary": "Get Player Info by Id",
+        "description": "Melakukan pencarian player berdasarkan Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Numeric ID of the user to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "ilham"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Player with {userId} not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Players"
+        ],
+        "summary": "Edit Player by ID",
+        "description": "Untuk melakukan update/edit player berdasarkan userId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Numeric ID of the user to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player with {userid} successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "ilham"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to update"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Players"
+        ],
+        "summary": "Delete Player by ID",
+        "description": "Menghapus player berdasarkan userId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player with {id}, was deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Cannot delete Player with {id}. Maybe Player was not found!"
+          }
+        }
+      }
+    },
+    "/exp/{userId}": {
+      "post": {
+        "tags": [
+          "Experience"
+        ],
+        "summary": "Update Player Experience by ID",
+        "description": "Melakukan update player berdasarkan user Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Numeric ID of the user to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player with {id} gain experience",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "ilham"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Exp field cannot be empty"
+          },
+          "404": {
+            "description": "Player with {id} not found"
+          }
+        }
+      }
+    }
+  }
+}
